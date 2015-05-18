@@ -1,0 +1,80 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <!-- Bootstrap -->
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<!--Angular-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+</head>
+<style>
+#login {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+</style>
+<script>
+var app = angular.module('validateform',[]);
+app.controller('formcontroller',function($scope,$http) {
+
+$scope.login = function() {
+$scope.submitted=true;
+if($scope.loginform.$valid) {
+var request= $http({
+method:"post",
+url:"/login.php",
+data: {
+ 'email': $scope.email,
+ 'password': $scope.password
+ },
+headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+			
+request.success(function (data) {
+                if(data == "1"){
+					top.location.href = 'home.php';
+                }
+                else {
+				alert("Invalid Username or Password");
+                  }
+            });
+    }
+  }
+});
+</script>
+   <body ng-app="validateform" ng-controller="formcontroller" style="background:#eee;">
+    
+    <div class="container text-center">
+    		<p><br/></p>
+  		<div class="row">			
+  			<div class="col-md-3">
+  				<div class="panel panel-default" id='login'>
+  					<div class="panel-body">
+    						<div class="page-header">
+  							<h3>Login Area</h3>
+						</div>
+						<div class="row">
+                          <form name="loginform" novalidate>
+						   <fieldset>  
+                            	<div class="form-group" ng-class="{ 'has-error' : loginform.email.$invalid && (loginform.email.$dirty || submitted)}">
+                                <input class="form-control" placeholder="Email" name="email" type="email" ng-model="email" ng-required="true">  
+								<p ng-show="loginform.email.$invalid && (loginform.email.$dirty || submitted)" class="help-block">Enter a valid email.</p>
+                            </div>  
+                            <div class="form-group" ng-class="{ 'has-error' : loginform.pass.$invalid && (loginform.pass.$dirty || submitted)}">  
+                                <input class="form-control" placeholder="Password" name="pass" type="password" value="" ng-model="password" ng-required="true">  
+								<p ng-show="loginform.pass.$invalid && (loginform.pass.$dirty || submitted)" class="help-block">Your password is required.</p>
+                            </div>
+							<input class="btn btn-lg btn-success btn-block" type="submit" value="Submit" name="login" ng-disabled="loginform.$invalid" ng-click="login()">  
+                             <br></br> 
+							 <p> Not an existing user? Click to <a href='register.html'> register.</a> </p> 
+						 </fieldset>  
+						 </form>
+						 </div>
+					</div>
+				 </div>
+			 </div>	
+         </div>
+    </div>
+		
+   </body>
+</html>
