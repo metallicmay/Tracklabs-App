@@ -43,6 +43,8 @@ else
 	  }
 	  </style>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	  <script data-require="angular.js@1.2.1" data-semver="1.2.1" src="http://code.angularjs.org/1.2.1/angular.js"></script>
+      <script data-require="underscore.js@1.5.1" data-semver="1.5.1" src="//cdn.jsdelivr.net/underscorejs/1.5.1/underscore-min.js"></script>
 	  <script type="text/javascript">
 	  var place = <?php echo json_encode( $array ) ?>;
 	  var app = angular.module("search",[]);
@@ -77,6 +79,23 @@ else
         }
 		 return false
 	 }
+	 
+	 $scope.allChecked = function () {
+      var chk = _.reduce($scope.placedetails, function (item, data) {
+       return item + (data.selected ? 1 : 0);
+        }, 0);
+
+     return (chk === $scope.placedetails.length);
+    };
+	 
+	 $scope.allClicked = function () {
+      var newval = !$scope.allChecked();
+    
+       _.each($scope.placedetails, function (data) {
+       data.selected = newval;
+       });
+     };
+	 
 	   $scope.deleterow = function() {
        $scope.placedetails = $scope.placedetails.filter(
 		   function(data) {
@@ -85,7 +104,7 @@ else
 				  {// code for IE7+, Firefox, Chrome, Opera, Safari
 				  xmlhttp=new XMLHttpRequest();
 				  }
-				else
+					else
 				  {// code for IE6, IE5
 				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 				  }
@@ -99,6 +118,7 @@ else
 				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 				xmlhttp.send(JSON.stringify(data));
 				return !data.selected;
+				
 				 }
 			  );
        }
@@ -117,10 +137,10 @@ else
  <form>
  <input type="text" placeholder= "Search by place name" ng-model="searchname"> 
  </form>
- <div align="right"> <button class= "btn btn-primary" ng-disabled="!isChecked()" ng-click="deleterow($index)" > Delete </button></div>
+ <div align="right"> <button class= "btn btn-primary" ng-disabled="!selectAll && !isChecked()" ng-click="deleterow($index)"> Delete </button></div>
  </br><table class='table table-bordered table-hover'>
      <tr>
-		 <td><input class='col-sm-8' type="checkbox" id ="chckHead" ng-model="selectAll"/></td>
+		 <td><input class='col-sm-8' type="checkbox" id ="chckHead" ng-model="selectAll" ng-click="allClicked()" ng-checked="allChecked()"/></td>
 		 <th><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Place Name <span ng-show="sortType == 'name'" class="fa fa-caret-down"></span></a></th>
 		 <th>Address</th>
 		 <th>Latitude</th>
