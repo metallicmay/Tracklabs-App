@@ -79,25 +79,28 @@ else
 	 }
 	   $scope.deleterow = function() {
        $scope.placedetails = $scope.placedetails.filter(
-       function(data) {
-       return !data.selected;
-	   <?php
-	   include_once("database.php");
-       $conn=mysql_connect ("localhost", "root","");
-       if (!$conn) {
-        die('Not connected : ' . mysql_error());
-             }
-        $db = mysql_select_db("tracklabs", $conn);
-       if (!$db) {
-       die ('Can\'t use db : ' . mysql_error());
-                    }
-        $emailid = $_SESSION["email"];
-        $delrow = mysql_query("DELETE from myplaces WHERE user_email = '$emailid' AND ");
-        
-         mysql_close($conn);
-	   ?>
-             }
-          );
+		   function(data) {
+				var xmlhttp;
+				if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				  xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+				xmlhttp.onreadystatechange=function()
+				  {
+				  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+					{
+					}
+				  }
+				xmlhttp.open("POST","delete_row.php",true);
+				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xmlhttp.send(JSON.stringify(data));
+				return !data.selected;
+				 }
+			  );
        }
 	 });
 	 </script>
@@ -109,19 +112,19 @@ else
   <li><a href="home.php">HOME</a></li>
   <li class="active"><a href="myplaces.php">MY PLACES</a></li>
   </ul>
- <br></br>
+ </br>
  <div ng-app="search" ng-controller="ctrl">
  <form>
  <input type="text" placeholder= "Search by place name" ng-model="searchname"> 
  </form>
  <div align="right"> <button class= "btn btn-primary" ng-disabled="!isChecked()" ng-click="deleterow($index)" > Delete </button></div>
- <br></br><table class='table table-bordered table-hover'>
+ </br><table class='table table-bordered table-hover'>
      <tr>
-     <td><input class='col-sm-8' type="checkbox" id ="chckHead" ng-model="selectAll"/></td>
-	 <th><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Place Name <span ng-show="sortType == 'name'" class="fa fa-caret-down"></span></a></th>
-     <th>Address</th>
-	 <th>Latitude</th>
-	 <th>Longitude</th>
+		 <td><input class='col-sm-8' type="checkbox" id ="chckHead" ng-model="selectAll"/></td>
+		 <th><a href="#" ng-click="sortType = 'name'; sortReverse = !sortReverse">Place Name <span ng-show="sortType == 'name'" class="fa fa-caret-down"></span></a></th>
+		 <th>Address</th>
+		 <th>Latitude</th>
+		 <th>Longitude</th>
      </tr>
 	 <tbody>
       <tr ng-repeat="data in placedetails | orderBy:sortType:sortReverse | filter:searchname">
@@ -134,8 +137,6 @@ else
     </tbody>    
 	 </table>
  </div>
-
- 
   </div>
   </body>
   </html>
