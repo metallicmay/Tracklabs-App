@@ -1,0 +1,93 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <!-- Bootstrap -->
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<!--Angular-->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+</head>
+<style>
+#register {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+</style>
+<script>	
+var app= angular.module('validateform',[]);
+app.controller('formcontroller',function($scope,$http) {
+$scope.submitform = function() {
+$scope.submitted=true;
+if($scope.regform.$valid) {
+//alert('works');
+var request= $http({
+method:"post",
+url:"/register.php",
+data: {
+ 'name': $scope.name,
+ 'password': $scope.password,
+ 'email': $scope.email,
+ 'dob' : $scope.dob,
+ 'num': $scope.num
+ },
+headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+			
+request.success(function (data) {
+                if(data == "1"){
+					top.location.href = 'login.html';
+                }
+                else {
+				alert("Error");
+                  }
+            });
+    }
+ }
+});
+</script>
+   <body ng-app="validateform" ng-controller="formcontroller" style="background:#eee;">
+    
+    <div class="container text-center">
+    		<p><br/></p>
+  		<div class="row">			
+  			<div class="col-md-4">
+  			<div class="panel panel-default" id='register'>
+  					<div class="panel-body">
+    						<div class="page-header">
+  							<h3>Register</h3>
+						</div>
+						<div class="row">
+                          <form role="form" name="regform" ng-submit="submitform()" novalidate>
+						   <fieldset>  
+                            <div class="form-group" ng-class="{ 'has-error' : regform.name.$invalid && (regform.name.$dirty || submitted)}">  
+                                <input class="form-control" placeholder="Name" name="name" type="text" ng-model="name" ng-required="true">  
+								<p ng-show="regform.name.$invalid && (regform.name.$dirty || submitted)" class="help-block">Your name is required.</p>
+                            </div>  
+                            <div class="form-group" ng-class="{ 'has-error' : regform.pass.$invalid && (regform.pass.$dirty || submitted)}"> 
+                                <input class="form-control" placeholder="Password" name="pass" type="password" ng-model="password" ng-required="true"> 
+                                <p ng-show="regform.pass.$invalid && (regform.pass.$dirty || submitted)" class="help-block">Your password is required.</p>								
+                            </div>
+							<div class="form-group"> <label> Date of Birth </label>
+                                <input class="form-control" placeholder="Date of Birth" name="dob" type="date" ng-model="dob">  
+                            </div> 
+							<div class="form-group" ng-class="{ 'has-error' : regform.email.$invalid && (regform.email.$dirty || submitted)}"> 
+                                <input class="form-control" placeholder="Email" name="email" type="email" ng-model="email" ng-required="true"> 
+                                <p ng-show="regform.email.$invalid && (regform.email.$dirty || submitted)" class="help-block">Enter a valid email.</p>								
+                            </div> 
+							<div class="form-group" ng-class="{ 'has-error' : regform.num.$invalid && (regform.num.$dirty || submitted)}"> 
+                                <input class="form-control" placeholder="Contact Number" name="num" type="text" ng-model="num" ng-required="true" 	ng-pattern="/^[789]\d{9}$/" maxlength="10">  
+                                <p ng-show="regform.num.$error.pattern && (regform.email.$dirty || submitted)" class="help-block">Enter a valid contact number.</p>
+							</div> 
+							<button class="btn btn-lg btn-success btn-block" type="submit" ng-disabled="regform.$invalid">Submit</button>
+							<br></br>
+							<p> Already an existing user? Click to <a href='login.html'> login.</a> </p>
+                         </fieldset>  
+						 </form>
+						</div>
+					</div>
+				</div>	
+			 </div>				
+			</div>
+		</div>
+   </body>
+</html>
