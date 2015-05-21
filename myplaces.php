@@ -134,6 +134,13 @@ else
 		var link = "mailto:?"+"&subject="+escape('Link to Google Maps Location')+"&body="+urls;
 	    window.location.href=link;
 	   }
+	   $scope.sendCoord = function(data) {
+	   var lati = data.lat;
+	   var longi = data.lng;
+	   var coords = "";
+	   coords += escape(lati) + "," + escape(longi);
+	   window.location = 'home.php?' + coords;
+	   }
 	   
 	 });
 	 </script>
@@ -163,7 +170,7 @@ else
 	 <tbody>
       <tr ng-repeat="data in placedetails | orderBy:sortType:sortReverse | filter:searchname">
 	    <td><input class ='col-sm-8' type="checkbox" id = "chcktbl" ng-checked="selectAll" ng-model="data.selected"/></td>
-        <td>{{ data.name }}</td>
+        <td><a href="#" ng-click="sendCoord(data)">{{ data.name }}</a></td>
         <td>{{ data.address }}</td>
         <td>{{ data.lat }}</td>
 		<td>{{ data.lng }}</td>
