@@ -41,7 +41,36 @@ else
     
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
     <script>
-      function initialize() {
+	 var lat,lon;
+     var query = window.location.search;
+    if (query.substring(0, 1) == '?') {
+       query = query.substring(1);
+        }
+        var data = query.split(','); 
+         for (i = 0; (i < data.length); i++) {
+           data[i] = unescape(data[i]);
+                   }
+            lat=data[0];
+            lon=data[1];
+      function initialize(x,y) {
+	    if(x && y) {
+		var myLatlng = new google.maps.LatLng(x,y);
+		var mapCanvas = document.getElementById('map-canvas');
+        var mapOptions = {
+        zoom: 5,
+         center: myLatlng
+           }
+
+       var map = new google.maps.Map(mapCanvas, mapOptions);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng
+           });
+
+          marker.setMap(map);
+		}
+		else
+		{
         var mapCanvas = document.getElementById('map-canvas');
         var mapOptions = {
           center: new google.maps.LatLng(44.5403, -78.5463),
@@ -169,9 +198,10 @@ function share(place) {
   button.onclick = function() {
     input.value='test';
     input.focus(); 
-  }   
- }  
-google.maps.event.addDomListener(window, 'load', initialize);
+   }   
+  }  
+ }
+google.maps.event.addDomListener(window, 'load', function(){initialize(lat,lon);});
 </script>
   </head>
   <body>
