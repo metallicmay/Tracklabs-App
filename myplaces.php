@@ -52,7 +52,7 @@ else
 	  $scope.sortType = 'name';
 	  $scope.sortReverse = 'false';
 	  $scope.searchName = '';
-	  
+	    
 	  $scope.placedetails = [
 	  <?php
 	  $delim="";
@@ -62,7 +62,9 @@ else
 		$address = $place['address'];
 		$lat = $place['lat'];
 		$lng = $place['lng'];
-		 echo $delim."{ name: '$name', address: '$address', lat: $lat, lng: $lng }";
+		$url = $place['url'];
+		$durl = urldecode($url);
+		 echo $delim."{ name: '$name', address: '$address', lat: $lat, lng: $lng, url: '$durl'}";
 		 $delim = ",\n\t";
 		}
 	  ?>
@@ -122,6 +124,17 @@ else
 				 }
 			  );
        }
+	   
+	   $scope.sharerow = function() {
+	   var urls = [];
+       angular.forEach($scope.placedetails, function(data) {
+	     if(data.selected)
+         this.push(data.url);
+              },urls);
+		var link = "mailto:?"+"&subject="+escape('Link to Google Maps Location')+"&body="+urls;
+	    window.location.href=link;
+	   }
+	   
 	 });
 	 </script>
 	  </head>
@@ -137,7 +150,8 @@ else
  <form>
  <input type="text" placeholder= "Search by place name" ng-model="searchname"> 
  </form>
- <div align="right"> <button class= "btn btn-primary" ng-disabled="!selectAll && !isChecked()" ng-click="deleterow($index)"> Delete </button></div>
+ <div align="right"> <button class= "btn btn-primary" ng-disabled="!selectAll && !isChecked()" ng-click="deleterow($index)"> Delete </button>
+  <button class= "btn btn-primary" ng-disabled="!selectAll && !isChecked()" ng-click="sharerow($index)"> Share </button></div>
  </br><table class='table table-bordered table-hover'>
      <tr>
 		 <td><input class='col-sm-8' type="checkbox" id ="chckHead" ng-model="selectAll" ng-click="allClicked()" ng-checked="allChecked()"/></td>
