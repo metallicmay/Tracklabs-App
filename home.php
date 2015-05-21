@@ -108,20 +108,24 @@ function save(place)
         document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
         }
       }
-   var emailid;
-   emailid = <?php echo json_encode($_SESSION["email"]);?>  
-   xmlhttp.open("GET","insert.php?name=" + markers[0].title + "&address=" + markers[0].full_address + "&lat=" + markers[0].position.A + "&lng=" + markers[0].position.F + "&email=" + emailid,true);
+   var name,addr,lat,lng,url,emailid;
+   emailid = <?php echo json_encode($_SESSION["email"]);?> 
+   name=markers[0].title;
+   addr=markers[0].full_address;
+   lat=markers[0].position.A;
+   lng=markers[0].position.F;
+   url=markers[0].map.mapUrl;
+   xmlhttp.open("GET","insert.php?name=" + name + "&address=" + addr + "&lat=" + lat + "&lng=" + lng + "&url=" + url + "&email=" + emailid,true);
    xmlhttp.send();
  
-    alert("Place added successfully!");
+   alert("Place added successfully!");
   }
 function share(place) {
  
-    console.log(markers[0]);
-    alert("Link: " + markers[0].map.mapUrl);
-    //var link = "mailto:?"+"&subject="+escape('Link to Google Maps Location')+"&body="+escape(markers[0].map.mapUrl);
-	//window.location.href=link;
-	//alert('Shared!');
+     console.log(markers[0]);
+     var link = "mailto:?"+"&subject="+escape('Link to Google Maps Location')+"&body="+escape(markers[0].map.mapUrl);
+	 window.location.href=link;
+	 alert('Shared!');
   }  
 	  function addInfoWindow(marker, message) {
 
