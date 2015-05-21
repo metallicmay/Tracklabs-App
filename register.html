@@ -19,7 +19,6 @@ app.controller('formcontroller',function($scope,$http) {
 $scope.submitform = function() {
 $scope.submitted=true;
 if($scope.regform.$valid) {
-//alert('works');
 var request= $http({
 method:"post",
 url:"/register.php",
