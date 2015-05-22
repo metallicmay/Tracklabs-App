@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2015 at 01:10 PM
+-- Generation Time: May 22, 2015 at 07:30 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.5.24
 
@@ -40,15 +40,16 @@ CREATE TABLE IF NOT EXISTS `myplaces` (
 --
 
 INSERT INTO `myplaces` (`name`, `address`, `lat`, `lng`, `url`, `user_email`) VALUES
+('Tirunelveli', 'Tirunelveli, Tamil Nadu, India', 8.730000, 77.699997, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D8.73%2C77.7', 'gayugovind@gmail.com'),
 ('Kochi', 'Kochi, Kerala, India', 9.931233, 76.267303, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D9.931233%2C76.267304', 'uaravindshenoy@gmail.com'),
 ('Trichy', 'Trichy, Tiruchirappalli, Tamil Nadu, India', 10.808379, 78.646965, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D10.808379%2C78.646966', 'uaravindshenoy@gmail.com'),
-('Dubai', 'Dubai - Dubai - United Arab Emirates', 25.204849, 55.270782, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D25.204849%2C55.270783', 'uaravindshenoy@gmail.com'),
-('Edinburgh', 'Edinburgh, City of Edinburgh, UK', 55.953251, -3.188267, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D55.953252%2C-3.188267', 'metallicmay@gmail.com'),
-('Colorado Springs', 'Colorado Springs, CO, USA', 38.833881, -104.821365, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D38.833882%2C-104.821363', 'metallicmay@gmail.com'),
 ('Bengaluru', 'Bengaluru, Karnataka, India', 12.971599, 77.594566, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D12.971599%2C77.594563', 'metallicmay@gmail.com'),
+('Bengaluru', 'Bengaluru, Karnataka, India', 12.971599, 77.594566, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D12.971599%2C77.594563', 'uaravindshenoy@gmail.com'),
+('Dubai', 'Dubai - Dubai - United Arab Emirates', 25.204849, 55.270782, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D25.204849%2C55.270783', 'uaravindshenoy@gmail.com'),
+('Georgia', 'Georgia, USA', 32.165623, -82.900078, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D32.165622%2C-82.900075', 'gayugovind@gmail.com'),
 ('San Jose', 'San Jose, CA, USA', 37.338207, -121.886330, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D37.338208%2C-121.886329', 'gayugovind@gmail.com'),
-('Tirunelveli', 'Tirunelveli, Tamil Nadu, India', 8.730000, 77.699997, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D8.73%2C77.7', 'gayugovind@gmail.com'),
-('Georgia', 'Georgia, USA', 32.165623, -82.900078, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D32.165622%2C-82.900075', 'gayugovind@gmail.com');
+('Colorado Springs', 'Colorado Springs, CO, USA', 38.833881, -104.821365, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D38.833882%2C-104.821363', 'metallicmay@gmail.com'),
+('Edinburgh', 'Edinburgh, City of Edinburgh, UK', 55.953251, -3.188267, 'https%3A%2F%2Fmaps.google.com%2Fmaps%3Fll%3D55.953252%2C-3.188267', 'metallicmay@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -77,6 +78,12 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_pass`, `user_email`, `user_do
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `myplaces`
+--
+ALTER TABLE `myplaces`
+  ADD UNIQUE KEY `dupli` (`lat`,`lng`,`user_email`);
 
 --
 -- Indexes for table `users`
