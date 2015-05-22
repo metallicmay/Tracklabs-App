@@ -28,7 +28,7 @@ else
 <html>
 <head>
 <title>MY PLACES</title>
-  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <style>
 	  #header {
 	  
@@ -44,7 +44,7 @@ else
 	  </style>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	  <script data-require="angular.js@1.2.1" data-semver="1.2.1" src="http://code.angularjs.org/1.2.1/angular.js"></script>
-      <script data-require="underscore.js@1.5.1" data-semver="1.5.1" src="//cdn.jsdelivr.net/underscorejs/1.5.1/underscore-min.js"></script>
+          <script data-require="underscore.js@1.5.1" data-semver="1.5.1" src="//cdn.jsdelivr.net/underscorejs/1.5.1/underscore-min.js"></script>
 	  <script type="text/javascript">
 	  var place = <?php echo json_encode( $array ) ?>;
 	  var app = angular.module("search",[]);
@@ -173,13 +173,13 @@ else
         <td><a href="#" ng-click="sendCoord(data)">{{ data.name }}</a></td>
         <td>{{ data.address }}</td>
         <td>{{ data.lat }}</td>
-		<td>{{ data.lng }}</td>
+	<td>{{ data.lng }}</td>
       </tr>
     </tbody>    
-	 </table>
+   </table>
  </div>
-  </div>
-  </body>
-  </html>
+</div>
+</body>
+</html>
 
   
