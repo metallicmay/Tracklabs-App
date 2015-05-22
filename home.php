@@ -10,7 +10,7 @@ else
 <html>
 <head>
 <title>HOME</title>
-  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <style>
 	  #header {
 	  
@@ -41,7 +41,7 @@ else
     
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
     <script>
-	 var lat,lon;
+     var lat,lon;
      var query = window.location.search;
     if (query.substring(0, 1) == '?') {
        query = query.substring(1);
@@ -87,11 +87,11 @@ else
 	  bounds: defaultBounds
 	  };
 	  
-	 var input =document.getElementById('pac-input');
+     var input =document.getElementById('pac-input');
      var searchBox = new google.maps.places.SearchBox(input);
      var markers = [];
 	 
-	  google.maps.event.addListener(searchBox, 'places_changed', function() {
+    google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
 
     for (var i = 0, marker; marker = markers[i]; i++) {
