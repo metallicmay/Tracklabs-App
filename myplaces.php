@@ -62,9 +62,10 @@ else
 		$address = $place['address'];
 		$lat = $place['lat'];
 		$lng = $place['lng'];
+		$email = $place['user_email'];
 		$url = $place['url'];
 		$durl = urldecode($url);
-		 echo $delim."{ name: '$name', address: '$address', lat: $lat, lng: $lng, url: '$durl'}";
+		 echo $delim."{ name: '$name', address: '$address', lat: $lat, lng: $lng, url: '$durl', email: '$email'}";
 		 $delim = ",\n\t";
 		}
 	  ?>
